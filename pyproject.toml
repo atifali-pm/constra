@@ -38,6 +38,10 @@ dev = [
     "ruff>=0.5",
     "black>=24.0",
 ]
+docs = [
+    "reportlab>=4.0",
+    "Pillow>=10.0",
+]
 
 [project.scripts]
 constra = "constra.app:main"

@@ -1,0 +1,53 @@
+# Constra development compose file.
+#
+# Usage (from repo root):
+#
+#   docker compose build
+#   docker compose run --rm constra pytest            # headless tests
+#   docker compose run --rm constra ruff check .
+#   docker compose run --rm constra black --check .
+#   docker compose run --rm constra python -m constra # visual app
+#
+# Before first visual launch, the host must allow the container to
+# draw on your X server. The simplest host-local permission is:
+#
+#   xhost +SI:localuser:$(whoami)
+#
+# For convenience, docker/run.sh wraps the common flows above.
+
+services:
+  constra:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        UID: "${HOST_UID:-1000}"
+        GID: "${HOST_GID:-1000}"
+    image: constra-dev:latest
+    # Host networking keeps X11 + any future local servers dead simple.
+    network_mode: host
+    # IPC host lets Qt's shared memory pathways work across the socket.
+    ipc: host
+    environment:
+      DISPLAY: "${DISPLAY:-:0}"
+      XAUTHORITY: /home/dev/.Xauthority
+      QT_X11_NO_MITSHM: "1"
+      # Uncomment for software rendering if GPU drivers inside the
+      # container disagree with the host:
+      # LIBGL_ALWAYS_SOFTWARE: "1"
+    volumes:
+      # Live source mount — editable install inside the image still
+      # resolves to /app/src so host edits are picked up immediately.
+      - .:/app
+      # X11 socket for visual output.
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # Optional Xauthority for stricter X setups (ignored if missing).
+      - ${XAUTHORITY:-/dev/null}:/home/dev/.Xauthority:ro
+    devices:
+      # GPU passthrough for hardware OpenGL (used by VTK in M4+).
+      # Comment out if your host has no /dev/dri or the container fails
+      # to open it.
+      - /dev/dri:/dev/dri
+    working_dir: /app
+    stdin_open: true
+    tty: true
