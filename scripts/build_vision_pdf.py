@@ -685,8 +685,7 @@ def build_story(styles) -> list:
         (
             "M0 — Project bootstrap",
             [
-                "Create GitHub repository (public) and add MIT license, README, "
-                ".gitignore.",
+                "Create GitHub repository (public) and add MIT license, README, " ".gitignore.",
                 "Set up Python project skeleton (pyproject.toml, src/ layout, virtual "
                 "environment instructions).",
                 "Add ruff + black + pytest + pytest-qt and a minimal CI workflow "
@@ -710,11 +709,9 @@ def build_story(styles) -> list:
             "M2 — Map View",
             [
                 "Build the Map View widget (Qt Graphics View or a VTK 2D render window).",
-                "Load a GeoTIFF via rasterio and display it reprojected into the "
-                "project CRS.",
+                "Load a GeoTIFF via rasterio and display it reprojected into the " "project CRS.",
                 "Load a shapefile/GeoJSON via pyogrio and overlay it.",
-                "Load a CSV of point data (e.g. well heads) and plot each point with "
-                "a label.",
+                "Load a CSV of point data (e.g. well heads) and plot each point with " "a label.",
                 "Add pan / zoom / layer visibility controls and a simple layer panel.",
             ],
         ),
@@ -733,8 +730,7 @@ def build_story(styles) -> list:
             [
                 "Build the 3D View widget using VTK / PyVista.",
                 "Render the loaded basemap, well heads, and seismic line in 3D space.",
-                "Link 3D View selection to Map View and Section View (shared selection "
-                "model).",
+                "Link 3D View selection to Map View and Section View (shared selection " "model).",
             ],
         ),
         (
@@ -743,8 +739,7 @@ def build_story(styles) -> list:
                 "Load LAS files with lasio and display logs in a small embedded log "
                 "track beside the Section View.",
                 "Package the app for Windows with PyInstaller (or briefcase).",
-                "Produce a signed installer and publish it as a GitHub release "
-                "artifact.",
+                "Produce a signed installer and publish it as a GitHub release " "artifact.",
             ],
         ),
     ]

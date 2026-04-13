@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "constra"
+version = "0.0.1"
+description = "An integrated desktop environment for geoscience interpretation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Atif Ali", email = "atif@monotote.com" }]
+keywords = ["geoscience", "seismic", "interpretation", "gis", "desktop"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: X11 Applications :: Qt",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "PySide6>=6.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-qt>=4.4",
+    "ruff>=0.5",
+    "black>=24.0",
+]
+
+[project.scripts]
+constra = "constra.app:main"
+
+[project.urls]
+Homepage = "https://github.com/atifali-pm/constra"
+Repository = "https://github.com/atifali-pm/constra"
+Issues = "https://github.com/atifali-pm/constra/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/constra"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # bugbear
+    "UP",  # pyupgrade
+    "SIM", # simplify
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
