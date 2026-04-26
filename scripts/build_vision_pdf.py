@@ -165,7 +165,7 @@ def figure(path: str, caption: str, styles, max_h: float = 10 * cm) -> KeepToget
 
 
 def bullet_list(items: list[str], styles) -> list:
-    return [Paragraph(f"\u2022&nbsp;&nbsp;{item}", styles["bullet"]) for item in items]
+    return [Paragraph(f"•&nbsp;&nbsp;{item}", styles["bullet"]) for item in items]
 
 
 def _header_footer(canvas, doc):
@@ -194,7 +194,7 @@ def build_story(styles) -> list:
     story.append(Paragraph("CONSTRA", styles["cover_title"]))
     story.append(
         Paragraph(
-            "An integrated desktop environment for geoscience interpretation",
+            "An integrated geoscience workspace for engineering and construction",
             styles["cover_subtitle"],
         )
     )
@@ -203,7 +203,7 @@ def build_story(styles) -> list:
     story.append(Spacer(1, 4 * cm))
     story.append(
         Paragraph(
-            f"Draft v0.1 &middot; {date.today().isoformat()}<br/>"
+            f"Draft v0.2 &middot; {date.today().isoformat()}<br/>"
             "Working name: <b>Constra</b> (subject to change)",
             styles["cover_meta"],
         )
@@ -214,46 +214,67 @@ def build_story(styles) -> list:
     story.append(Paragraph("1. Executive Summary", styles["h1"]))
     story.append(
         Paragraph(
-            "Constra is a new cross-platform desktop application for geoscience "
-            "interpretation. It starts from a simple observation: the tools geoscientists "
-            "use today fall into two camps. On one side sit large, integrated commercial "
-            "platforms such as <b>Petrel</b> that combine satellite imagery, 2D seismic, "
-            "well data, and 3D reservoir models into a single interactive workspace in "
-            "real-world coordinates. On the other side sit general-purpose plotting tools "
-            "such as <b>Surfer</b> that are capable but manual, figure-oriented, and not "
-            "designed to hold a whole project in a shared coordinate frame.",
+            "Constra is a desktop application for <b>engineering geoscience</b> — the daily "
+            "working environment for engineering geologists and engineering geophysicists "
+            "in geotechnical site investigation, civil and construction engineering, "
+            "mining engineering, and environmental / engineering hydrogeology. It is built "
+            "around three linked views — Map, Section, and 3D — that share a single "
+            "real-world coordinate frame, so the boreholes, in-situ tests, near-surface "
+            "geophysics, topographic data, and CAD-derived plans that drive an engineering "
+            "project all live together in one project.",
             styles["body"],
         )
     )
     story.append(
         Paragraph(
-            "Constra aims at the underserved middle: the power of an integrated, "
-            "coordinate-aware, multi-view workspace, delivered as an open, accessible "
-            "desktop tool that a single geoscientist, a student, or a small consultancy "
-            "can actually install and use.",
+            "The oil &amp; gas industry has had this kind of integrated, coordinate-aware "
+            "workspace for decades — Petrel, by Schlumberger, is the canonical example "
+            "and a genuinely outstanding product within its domain. Engineering "
+            "geoscience has had no equivalent. Practitioners assemble cross-sections by "
+            "hand in CAD, plot data in generic tools, and stitch results together across "
+            "half a dozen single-purpose applications, with all the workflow friction "
+            "and silent inconsistency that implies. Constra exists to close that gap — "
+            "to give the engineering practitioner the same kind of integrated workspace "
+            "that the oil industry has long enjoyed, but built specifically around "
+            "engineering data, engineering coordinate systems, and the engineering "
+            "interpretation workflow.",
             styles["body"],
         )
     )
     story.append(
         Paragraph(
-            "This document captures the two source notes that motivated the project "
-            "(summaries of Petrel and Surfer), distils them into a comparison, and then "
-            "lays out the problem statement, target user, MVP scope, technology choice, "
-            "and the initial backlog of tasks needed to stand the project up.",
+            "Petrel and Surfer appear in this document only as <i>exemplars</i>. Petrel "
+            "illustrates what an integrated, multi-view, coordinate-aware workspace looks "
+            "like when one is purpose-built for an industry. Surfer illustrates the limits "
+            "of generic plotting tools that lack a project model. Neither is a competitor "
+            "to Constra: Constra serves a different industry — one that currently has "
+            "nothing of either kind purpose-built for it.",
             styles["body"],
         )
     )
     story.append(PageBreak())
 
     # -------- Background: Petrel --------
-    story.append(Paragraph("2. Background — Petrel", styles["h1"]))
+    story.append(Paragraph("2. Exemplar — Petrel", styles["h1"]))
     story.append(
         Paragraph(
-            "Petrel is a leading oil and gas industry interpretation platform. It "
-            "integrates geophysical, geological, hydrogeological, and reservoir data "
-            "into a single interactive environment where multiple data types can be "
-            "combined and visualised together. Data can be displayed in both 2D and 3D, "
-            "and every view stays in sync with the others.",
+            "Petrel is a flagship interpretation platform built by Schlumberger for the "
+            "oil &amp; gas industry. It is shown here only as an exemplar — a legendary "
+            "product within its industry, used to illustrate what an integrated, "
+            "coordinate-aware geoscience workspace looks like when one is purpose-built "
+            "for a domain. Petrel does not serve engineering, and Constra is not a "
+            "Petrel alternative; the two products live in different industries. The "
+            "figures that follow are reproduced so that the reader can see, concretely, "
+            "what the engineering equivalent — Constra — should feel like in use.",
+            styles["body"],
+        )
+    )
+    story.append(
+        Paragraph(
+            "Within its own industry, Petrel integrates geophysical, geological, "
+            "hydrogeological, and reservoir data into a single interactive environment "
+            "where multiple data types can be combined and visualised together. Data is "
+            "displayed in both 2D and 3D, and every view stays in sync with the others.",
             styles["body"],
         )
     )
@@ -280,10 +301,9 @@ def build_story(styles) -> list:
     story.append(
         figure(
             os.path.join(IMAGES_DIR, "02-petrel-map-seismic-wells.png"),
-            "Figure 2 — Seismic lines overlaid with well locations. The same Map View "
-            "now also shows the geometry of acquired 2D seismic lines together with "
-            "well locations, so an interpreter can pick which line to open next based "
-            "on where the wells are.",
+            "Figure 2 — Seismic lines overlaid with well locations. The Map View shows "
+            "the geometry of acquired 2D seismic lines together with well locations, so "
+            "an interpreter can pick which line to open next based on where the wells are.",
             styles,
         )
     )
@@ -351,68 +371,59 @@ def build_story(styles) -> list:
             "rather than by the user. This is what makes the cross-view interactivity "
             "meaningful: a well clicked in the Map View is the <i>same</i> well in the "
             "Section View and the 3D View, because the underlying coordinate system is "
-            "unified.",
+            "unified. Constra targets the same property for engineering data.",
             styles["body"],
         )
     )
     story.append(PageBreak())
 
     # -------- Background: Surfer --------
-    story.append(Paragraph("3. Background — Surfer", styles["h1"]))
+    story.append(Paragraph("3. Exemplar — Surfer", styles["h1"]))
     story.append(
         Paragraph(
-            "Surfer (by Golden Software) is a plotting and contouring package widely "
-            "used for displaying spatial data. It is capable software and well suited "
-            "to producing individual map and section figures, but it was not designed "
-            "as an integrated interpretation environment in the way Petrel was.",
+            "Surfer (by Golden Software) is a widely used plotting and contouring "
+            "package for spatial data. It is shown here as an exemplar of a different "
+            "category — a generic plotting tool, not an industry-specific workspace — "
+            "to illustrate where the integration limit sits when a tool is not built "
+            "around a project model. Surfer is good at what it does; the point is simply "
+            "that what it does is not what an engineering practitioner needs as a daily "
+            "working environment.",
             styles["body"],
         )
     )
 
-    story.append(Paragraph("3.1 Map and Section Views", styles["h2"]))
+    story.append(Paragraph("3.1 No dedicated views", styles["h2"]))
     story.append(
         Paragraph(
-            "Surfer does not provide dedicated Map and Section views that are separate "
-            "from each other. All output — whether conceptually a map or a vertical "
-            "section — is drawn into the same generic plot window. There is no shared "
-            "geographic canvas, no automatic basemap layer, and no cross-view "
-            "synchronisation. Each figure is a standalone artefact constructed by hand.",
+            "Surfer does not provide separate Map, Section, and 3D views that share "
+            "state. All output — whether conceptually a map or a vertical section — is "
+            "drawn into the same generic plot window. There is no shared geographic "
+            "canvas, no automatic basemap layer, and no cross-view synchronisation. "
+            "Each figure is a standalone artefact constructed by hand.",
             styles["body"],
         )
     )
 
-    story.append(Paragraph("3.2 3D View", styles["h2"]))
+    story.append(Paragraph("3.2 No project-level coordinate frame", styles["h2"]))
     story.append(
         Paragraph(
-            "Surfer offers 3D surface and wireframe plots, but these are again "
-            "standalone outputs rather than a synchronised 3D workspace. A 3D plot does "
-            "not share state with any 2D map or section that the user has open.",
+            "Surfer does not place datasets into a shared real-world projected coordinate "
+            "frame. Data is plotted against whatever coordinate values are supplied in "
+            "the input file, and the user is responsible for ensuring those values are "
+            "consistent across datasets. There is no built-in projection engine that "
+            "unifies every dataset into a single geographic reference.",
             styles["body"],
         )
     )
 
-    story.append(Paragraph("3.3 Coordinate System", styles["h2"]))
+    story.append(Paragraph("3.3 Manual workflow", styles["h2"]))
     story.append(
         Paragraph(
-            "Surfer does not natively place datasets into a shared real-world projected "
-            "coordinate frame the way Petrel does. Data is plotted against whatever "
-            "coordinate values are supplied in the input file, and the user is "
-            "responsible for ensuring those values are consistent across datasets. "
-            "There is no built-in projection engine that unifies every dataset into a "
-            "single geographic reference.",
-            styles["body"],
-        )
-    )
-
-    story.append(Paragraph("3.4 Workflow", styles["h2"]))
-    story.append(
-        Paragraph(
-            "Surfer's workflow is predominantly manual. Every dataset, every object, "
-            "every label is added to the plot by the user. This is acceptable when "
-            "producing a single figure, but it scales poorly when many datasets must "
-            "be kept consistent, when data is updated frequently, or when an interpreter "
-            "needs to move fluidly between map, section, and 3D perspectives of the "
-            "same subsurface model.",
+            "Every dataset, every object, every label is added to the plot by the user. "
+            "This is acceptable when producing a single figure, but it scales poorly "
+            "when many datasets must be kept consistent, when data is updated frequently, "
+            "or when an interpreter needs to move fluidly between map, section, and 3D "
+            "perspectives of the same subsurface model.",
             styles["body"],
         )
     )
@@ -425,12 +436,16 @@ def build_story(styles) -> list:
     )
     story.append(PageBreak())
 
-    # -------- Comparison table --------
-    story.append(Paragraph("4. Side-by-Side Comparison", styles["h1"]))
+    # -------- Comparison: where things stand for engineering --------
+    story.append(Paragraph("4. The Engineering-Geoscience Gap", styles["h1"]))
     story.append(
         Paragraph(
-            "The table below distils the two backgrounds into the capabilities that "
-            "matter most for an integrated interpretation workflow.",
+            "The point of contrasting these two exemplars is not to compare them with "
+            "each other, but to show what the engineering practitioner has access to "
+            "today. The oil &amp; gas industry has Petrel; everyone, including "
+            "engineering teams, has Surfer-class plotting tools; engineering geoscience "
+            "has no widely available integrated workspace of its own. The table below "
+            "makes that gap explicit.",
             styles["body"],
         )
     )
@@ -447,50 +462,62 @@ def build_story(styles) -> list:
         return Paragraph(text, s)
 
     data = [
-        [cell("<b>Capability</b>"), cell("<b>Petrel</b>"), cell("<b>Surfer</b>")],
         [
-            cell("Dedicated Map View"),
-            cell("Yes — shared geographic canvas"),
-            cell("No — generic plot window"),
+            cell("<b>Capability</b>"),
+            cell("<b>Petrel<br/>(oil &amp; gas)</b>"),
+            cell("<b>Surfer<br/>(generic plotting)</b>"),
+            cell("<b>Engineering<br/>geoscience today</b>"),
         ],
         [
-            cell("Dedicated Section View"),
-            cell("Yes — vertical slice, linked to map"),
-            cell("No — another plot in the same window"),
+            cell("Industry-specific integrated workspace"),
+            cell("Yes"),
+            cell("—"),
+            cell("None widely available"),
         ],
         [
-            cell("Dedicated 3D View"),
-            cell("Yes — synchronised 3D workspace"),
-            cell("Standalone 3D plots only"),
+            cell("Single project / shared coordinate frame"),
+            cell("Yes"),
+            cell("No"),
+            cell("None widely available"),
         ],
         [
-            cell("Cross-view interactivity"),
-            cell("Yes — actions propagate across views"),
-            cell("No — figures are independent"),
+            cell("Real-world coordinates, automatic reprojection"),
+            cell("Yes"),
+            cell("No"),
+            cell("Handled per-tool, per-file"),
         ],
         [
-            cell("Real-world coordinates (lat/long, E/N)"),
-            cell("Native; projections handled automatically"),
-            cell("Not native; user manages coordinate consistency"),
+            cell("Linked Map / Section / 3D views"),
+            cell("Yes"),
+            cell("No"),
+            cell("None widely available"),
         ],
         [
-            cell("Data integration model"),
-            cell("Unified project containing all datasets"),
-            cell("Per-figure, assembled manually"),
+            cell("Multiple simultaneous cross-sections"),
+            cell("Yes"),
+            cell("No"),
+            cell("Manual in CAD"),
         ],
         [
-            cell("Typical audience"),
-            cell("Large operators, well-funded teams"),
-            cell("Anyone producing geoscience figures"),
+            cell("Native readers for the industry's primary data"),
+            cell("Yes (oil &amp; gas formats)"),
+            cell("—"),
+            cell("Fragmented across single-purpose tools"),
         ],
         [
-            cell("Accessibility / cost"),
-            cell("Enterprise-priced commercial license"),
-            cell("Commercial license, far more affordable"),
+            cell("Cross-view selection / propagation"),
+            cell("Yes"),
+            cell("No"),
+            cell("None widely available"),
         ],
     ]
 
-    col_widths = [CONTENT_WIDTH * 0.26, CONTENT_WIDTH * 0.37, CONTENT_WIDTH * 0.37]
+    col_widths = [
+        CONTENT_WIDTH * 0.32,
+        CONTENT_WIDTH * 0.20,
+        CONTENT_WIDTH * 0.22,
+        CONTENT_WIDTH * 0.26,
+    ]
     table = Table(data, colWidths=col_widths, repeatRows=1)
     table.setStyle(
         TableStyle(
@@ -508,68 +535,105 @@ def build_story(styles) -> list:
         )
     )
     story.append(table)
+    story.append(Spacer(1, 4 * mm))
+    story.append(
+        Paragraph(
+            "Constra is built to fill the rightmost column.",
+            styles["callout"],
+        )
+    )
     story.append(PageBreak())
 
     # -------- Problem & target user --------
-    story.append(Paragraph("5. Problem Statement & Target User", styles["h1"]))
-    story.append(Paragraph("5.1 The gap", styles["h2"]))
+    story.append(Paragraph("5. Problem Statement &amp; Target User", styles["h1"]))
+    story.append(Paragraph("5.1 The problem", styles["h2"]))
     story.append(
         Paragraph(
-            "A geoscientist who wants to work on subsurface data today faces a choice "
-            "between two extremes. Commercial integrated platforms such as Petrel "
-            "deliver an excellent multi-view, coordinate-aware workflow, but are priced "
-            "for large operators and tied to heavy enterprise licensing. General plotting "
-            "tools such as Surfer are affordable but produce isolated figures rather than "
-            "a living, linked interpretation environment. There is no widely available, "
-            "lightweight desktop tool that offers the <i>workflow</i> benefits of the "
-            "integrated model (shared coordinate frame, linked views, data-type awareness) "
-            "without the enterprise baggage.",
+            "Engineering projects — foundations, slopes, tunnels, dams, roads, mining "
+            "works, environmental sites — generate large quantities of geological and "
+            "geophysical data: borehole logs, in-situ tests (CPT, SPT, and others), "
+            "near-surface geophysics surveys (refraction, MASW, GPR, ERT), topographic "
+            "and bathymetric data, CAD-derived plans, and the engineer's own interpreted "
+            "cross-sections. Today this data is handled across a fragmented toolchain — "
+            "a CAD package for plans and sections, a plotting tool for graphs, a GIS for "
+            "spatial layers, and Excel for tabular records. There is no integrated "
+            "workspace, comparable to what oil &amp; gas has in Petrel, that brings "
+            "these data into one project, in one coordinate system, with linked Map, "
+            "Section, and 3D views.",
             styles["body"],
+        )
+    )
+    story.append(
+        Paragraph(
+            "Constra exists to be that workspace.",
+            styles["callout"],
         )
     )
 
     story.append(Paragraph("5.2 Who Constra is for", styles["h2"]))
+    story.append(
+        Paragraph(
+            "Constra is built specifically for the <b>engineering geologist</b> and the "
+            "<b>engineering geophysicist</b> — the practitioner who produces interpreted "
+            "geological and geophysical models of the near surface and has to communicate "
+            "them to civil designers, contractors, regulators, and clients. The primary "
+            "domains of practice are:",
+            styles["body"],
+        )
+    )
     story.extend(
         bullet_list(
             [
-                "Independent geoscientists and small consultancies who cannot justify "
-                "a Petrel license but need more than a plotting tool.",
-                "University students and researchers learning interpretation workflows "
-                "on real data.",
-                "Adjacent disciplines (shallow geothermal, mineral exploration, "
-                "hydrogeology, near-surface geophysics) whose data looks like oil and "
-                "gas data but whose budgets do not.",
-                "Anyone who wants to load a GeoTIFF basemap, drop well locations on it, "
-                "open a seismic section linked to those wells, and view the whole thing "
-                "in 3D — without a week of manual plot construction.",
+                "Geotechnical site investigation.",
+                "Civil and construction engineering — foundations, slopes, dams, "
+                "tunnels, roads, bridges, embankments.",
+                "Mining engineering and exploration that does not fit the oil &amp; gas "
+                "paradigm.",
+                "Environmental engineering and engineering hydrogeology.",
             ],
             styles,
         )
     )
+    story.append(
+        Paragraph(
+            "The shared characteristic across all four is that the practitioner is "
+            "working in real-world coordinates, with multiple data types per project, "
+            "producing interpreted outputs (cross-sections, maps, 3D models) that other "
+            "engineers and stakeholders consume.",
+            styles["body"],
+        )
+    )
 
-    story.append(Paragraph("5.3 What Constra is explicitly not", styles["h2"]))
+    story.append(Paragraph("5.3 What Constra is not", styles["h2"]))
     story.extend(
         bullet_list(
             [
-                "Not a full Petrel replacement. Petrel is a multi-decade, multi-hundred-"
-                "person platform; Constra will not match its feature breadth and should "
-                "not try to.",
-                "Not a reservoir simulator. Constra is an interpretation and "
-                "visualisation environment, not a numerical solver.",
-                "Not a web application (initially). The first release is a desktop app.",
+                "<b>Not a numerical solver.</b> Constra is an interpretation and "
+                "visualisation environment — it does not run finite-element analyses, "
+                "slope-stability calculations, groundwater flow models, or seismic "
+                "processing pipelines. It produces and displays interpreted models that "
+                "those tools can consume.",
+                "<b>Not (yet) a web application.</b> v0.1 is a desktop application for "
+                "Windows. The chosen technology stack does not preclude a future web or "
+                "cross-platform release, but neither is committed at v0.1.",
+                "<b>Not a multi-user collaboration platform.</b> A single practitioner "
+                "working on a single project is the v0.1 case. Multi-user editing, "
+                "cloud sync, and shared review are explicitly future work.",
             ],
             styles,
         )
     )
     story.append(PageBreak())
 
-    # -------- MVP scope --------
-    story.append(Paragraph("6. MVP Scope", styles["h1"]))
+    # -------- Initial release scope --------
+    story.append(Paragraph("6. Initial Release Scope (v0.1)", styles["h1"]))
     story.append(
         Paragraph(
-            "The MVP has to be small enough to ship and sharp enough to prove the core "
-            "thesis: <b>shared coordinate frame, linked views, real geoscience data.</b> "
-            "Everything below is in scope for v0.1. Everything else is deferred.",
+            "Constra is meant to be a sophisticated, ambitious tool — the engineering "
+            "industry's equivalent of a Petrel-class workspace, not a minimalist "
+            "proof-of-concept. The v0.1 scope below is the first coherent release "
+            "subset: enough to be genuinely useful on a real engineering project, while "
+            "leaving room for everything else to follow.",
             styles["body"],
         )
     )
@@ -578,37 +642,62 @@ def build_story(styles) -> list:
     story.extend(
         bullet_list(
             [
-                "<b>Project container.</b> A Constra project is a folder that holds "
-                "datasets plus a project-level coordinate reference system (CRS).",
-                "<b>Map View.</b> 2D canvas that renders all datasets in their real-world "
-                "projected coordinates, with pan, zoom, and layer visibility controls.",
-                "<b>Section View.</b> Dedicated window for displaying one vertical "
-                "section at a time, linked to the Map View.",
-                "<b>3D View.</b> A minimal 3D scene showing the same datasets in space, "
-                "linked to the Map View's selection.",
-                "<b>Data formats, read-only for MVP:</b> GeoTIFF (raster basemap); "
-                "shapefile and GeoJSON (vector features); CSV (point data such as well "
-                "heads); LAS (well logs, 1D); SEG-Y (2D post-stack seismic).",
-                "<b>Coordinate system support.</b> Per-project CRS, with on-the-fly "
-                "reprojection of loaded datasets via PROJ (pyproj).",
-                "<b>Cross-view selection.</b> Selecting a well on the map highlights it "
-                "in the section view and the 3D view.",
-                "<b>Windows installer.</b> A one-click MSI or exe for Windows 10/11.",
+                "<b>Project container.</b> A Constra project is a folder holding data "
+                "sources plus a project-level coordinate reference system (CRS) and "
+                "project metadata.",
+                "<b>Map View.</b> 2D canvas that renders all datasets in their "
+                "real-world projected coordinates, with pan, zoom, and layer visibility "
+                "controls. The user can lay out <b>multiple cross-section corridors</b> "
+                "(straight or polyline) on the map for use by the Section View.",
+                "<b>Section View.</b> Vertical-section workspace supporting <b>multiple "
+                "sections open simultaneously</b>, each linked to a corridor defined "
+                "on the map. Each section displays the data that intersects its "
+                "corridor — boreholes, in-situ test traces, near-surface geophysics "
+                "data — in correct relative depth and along-corridor distance.",
+                "<b>3D View.</b> A 3D scene rendering all loaded datasets in space, "
+                "linked to the same selection model as Map View and Section View.",
+                "<b>Engineering data import.</b> Native readers for the data formats "
+                "primary to engineering geoscience workflows. The exact format set for "
+                "v0.1 is being finalised; current candidates include borehole records "
+                "(e.g. AGS), in-situ test data (CPT, SPT), near-surface geophysics "
+                "(refraction, MASW, GPR, ERT), DEM/DTM rasters (GeoTIFF, ASCII grid), "
+                "vector GIS layers (shapefile, GeoJSON), and CAD plans (DXF). "
+                "<b>SEG-Y is not a v0.1 priority</b> — engineering geophysics is "
+                "largely non-SEG-Y.",
+                "<b>Coordinate system support.</b> Per-project CRS via PROJ (pyproj), "
+                "with on-the-fly reprojection of every loaded dataset into the project "
+                "frame.",
+                "<b>Cross-view selection.</b> Selecting a borehole, station, or feature "
+                "in any view highlights it in every other view.",
+                "<b>Windows installer.</b> A one-click MSI or exe for Windows 10/11, "
+                "produced as a GitHub release artefact.",
             ],
             styles,
         )
     )
 
     story.append(Paragraph("6.2 Deferred past v0.1", styles["h2"]))
+    story.append(
+        Paragraph(
+            "The list below contains items that fit Constra's industry but are not "
+            "scheduled for the first release. Oil &amp; gas-specific features (reservoir "
+            "modelling, horizon picking on 3D seismic volumes, SEG-Y attribute "
+            "generation) are not on this list — they belong to a different industry and "
+            "are simply out of scope.",
+            styles["body"],
+        )
+    )
     story.extend(
         bullet_list(
             [
-                "Horizon picking, fault interpretation, attribute generation.",
-                "3D reservoir grids and property modelling.",
-                "Write support for any file format (v0.1 is read-only).",
-                "Collaboration, cloud sync, multi-user projects.",
-                "Mac and Linux installers (possible later; Windows is the priority).",
-                "Python scripting / plugin API (likely v0.3 or later).",
+                "Edit / write-back of imported data files (v0.1 is read-only).",
+                "Multi-user collaboration, cloud sync, and shared project review.",
+                "Mac and Linux installers (the chosen stack supports them; v0.1 simply "
+                "does not commit to producing or supporting them).",
+                "Python scripting / plugin API for user extensions.",
+                "Web or SaaS deployment.",
+                "Automated report generation (PDF / DOCX export of interpreted "
+                "sections and maps).",
             ],
             styles,
         )
@@ -621,19 +710,20 @@ def build_story(styles) -> list:
     story.extend(
         bullet_list(
             [
-                "<b>Language:</b> Python 3.11+",
+                "<b>Language:</b> Python 3.10+",
                 "<b>GUI framework:</b> PySide6 (Qt 6 bindings, LGPL)",
                 "<b>3D and scientific visualisation:</b> VTK (the library behind "
                 "ParaView and 3D Slicer), optionally via PyVista for ergonomics",
                 "<b>Coordinate systems:</b> pyproj (bindings to PROJ)",
-                "<b>Raster I/O:</b> rasterio (GeoTIFF, etc.)",
-                "<b>Vector I/O:</b> pyogrio or Fiona for shapefile/GeoJSON; geopandas "
-                "for in-memory manipulation",
-                "<b>Seismic I/O:</b> segyio for SEG-Y",
-                "<b>Well log I/O:</b> lasio for LAS",
-                "<b>Packaging for Windows:</b> PyInstaller or briefcase, producing a "
-                "standalone installer",
-                "<b>Testing:</b> pytest, with pytest-qt for GUI tests",
+                "<b>Raster I/O:</b> rasterio (GeoTIFF, ASCII grid, etc.)",
+                "<b>Vector I/O:</b> pyogrio or Fiona for shapefile / GeoJSON; "
+                "geopandas for in-memory manipulation",
+                "<b>CAD I/O:</b> ezdxf for DXF (a primary engineering interchange " "format)",
+                "<b>Engineering-format parsers:</b> selection finalised during M1 "
+                "planning — likely python-ags4 for AGS borehole data, plus dedicated "
+                "or custom readers for CPT, refraction, MASW, GPR, ERT.",
+                "<b>Packaging for Windows:</b> PyInstaller, producing a standalone " "installer",
+                "<b>Testing:</b> pytest with pytest-qt for GUI tests",
                 "<b>Linting / formatting:</b> ruff, black",
             ],
             styles,
@@ -646,13 +736,13 @@ def build_story(styles) -> list:
             "This is the same toolchain that underpins ParaView and 3D Slicer, two of "
             "the most successful open-source scientific visualisation applications in "
             "existence. Every hard problem on Constra's roadmap — large raster display, "
-            "3D scene management, coordinate reprojection, seismic parsing, well log "
-            "parsing — already has a mature, well-maintained Python library. Python "
-            "also keeps iteration speed high, which matters enormously at v0.1 when "
-            "the biggest risk is <i>building the wrong product</i>, not <i>building it "
-            "too slowly</i>. A future port of performance-critical pieces to C++ or Rust "
-            "remains possible; starting there would simply slow the project down before "
-            "the core product ideas have been tested.",
+            "3D scene management, coordinate reprojection, vector and CAD interop — "
+            "already has a mature, well-maintained Python library. Where engineering-"
+            "specific parsers are needed, Python is also the easiest ecosystem to add "
+            "them in. Iteration speed matters at this stage, when getting the "
+            "interaction model right is more important than micro-optimised performance; "
+            "performance-critical components can later be moved to C++ or Rust without "
+            "changing the user-facing application.",
             styles["body"],
         )
     )
@@ -660,11 +750,11 @@ def build_story(styles) -> list:
     story.append(Paragraph("7.3 Platform strategy", styles["h2"]))
     story.append(
         Paragraph(
-            "v0.1 targets <b>Windows 10/11</b> only, because that is where the target "
-            "users already run Petrel and Surfer. Because the chosen stack is "
-            "cross-platform by construction, Linux and macOS builds are expected to "
-            "come essentially for free once the Windows build is stable — but they are "
-            "not a v0.1 commitment.",
+            "v0.1 targets <b>Windows 10/11</b> only, because that is where engineering "
+            "practitioners work day-to-day. Because the chosen stack is cross-platform "
+            "by construction, Linux and macOS builds are expected to come essentially "
+            "for free once the Windows build is stable — but they are not a v0.1 "
+            "commitment.",
             styles["body"],
         )
     )
@@ -683,63 +773,76 @@ def build_story(styles) -> list:
 
     milestones = [
         (
-            "M0 — Project bootstrap",
+            "M0 — Project bootstrap (complete)",
             [
-                "Create GitHub repository (public) and add MIT license, README, " ".gitignore.",
-                "Set up Python project skeleton (pyproject.toml, src/ layout, virtual "
-                "environment instructions).",
-                "Add ruff + black + pytest + pytest-qt and a minimal CI workflow "
-                "(GitHub Actions) that runs them on push.",
-                "Add a hello-world PySide6 main window that launches and closes cleanly.",
+                "Public GitHub repository at github.com/atifali-pm/constra, with MIT "
+                "licence, README, and .gitignore.",
+                "Python project skeleton (pyproject.toml, src/ layout, dev / docs " "extras).",
+                "Ruff + black + pytest + pytest-qt configured, plus GitHub Actions "
+                "CI on Python 3.10 / 3.11 / 3.12.",
+                "Hello-world PySide6 main window that launches and closes cleanly.",
+                "Docker development image with X11 forwarding for visual runs on " "Linux hosts.",
             ],
         ),
         (
-            "M1 — Project container and CRS",
+            "M1 — Project container, CRS, and engineering-format selection",
             [
-                "Define the on-disk Constra project format (project folder + "
-                "project.json or project.toml).",
+                "Define the on-disk Constra project format (project folder + " "project.toml).",
                 "Implement project create / open / save.",
-                "Implement a project-level CRS setting (pick EPSG code at project "
-                "creation, stored in project file).",
+                "Project-level CRS setting (pick EPSG code at project creation, "
+                "stored in the project file).",
                 "Wire pyproj for on-the-fly reprojection of any loaded dataset into "
                 "the project CRS.",
+                "Finalise the v0.1 set of engineering data formats and pick / write "
+                "the parsers.",
             ],
         ),
         (
             "M2 — Map View",
             [
-                "Build the Map View widget (Qt Graphics View or a VTK 2D render window).",
-                "Load a GeoTIFF via rasterio and display it reprojected into the " "project CRS.",
-                "Load a shapefile/GeoJSON via pyogrio and overlay it.",
-                "Load a CSV of point data (e.g. well heads) and plot each point with " "a label.",
-                "Add pan / zoom / layer visibility controls and a simple layer panel.",
+                "Build the Map View widget (Qt Graphics View or a VTK 2D render " "window).",
+                "Load a DEM / DTM raster (GeoTIFF, ASCII grid) and display it "
+                "reprojected into the project CRS.",
+                "Load a shapefile / GeoJSON vector layer and overlay it.",
+                "Load a CSV of point data (e.g. borehole heads) and plot each point "
+                "with a label.",
+                "Load a DXF plan via ezdxf and render it as a layer.",
+                "Pan / zoom / layer-visibility controls and a layer panel.",
+                "Tool to draw <b>multiple cross-section corridors</b> on the map for "
+                "use by the Section View.",
             ],
         ),
         (
-            "M3 — Section View",
+            "M3 — Section View (multiple sections)",
             [
-                "Build the Section View widget.",
-                "Implement a SEG-Y reader (segyio) that loads one 2D post-stack line.",
-                "Display the seismic section with configurable colour map and gain.",
-                "Link Section View to Map View: clicking a line on the map opens it "
-                "in the section view.",
+                "Build the Section View widget supporting <b>multiple sections open "
+                "concurrently</b>, one per defined corridor.",
+                "For each section, project the data that intersects the corridor "
+                "(boreholes, in-situ test traces, near-surface geophysics) into "
+                "(distance, depth) coordinates and render it.",
+                "Configurable colour map, gain, vertical exaggeration, and depth " "scale.",
+                "Link Section View to Map View — selecting a section corridor, "
+                "feature, or borehole in one view highlights it in the other.",
             ],
         ),
         (
             "M4 — 3D View",
             [
                 "Build the 3D View widget using VTK / PyVista.",
-                "Render the loaded basemap, well heads, and seismic line in 3D space.",
-                "Link 3D View selection to Map View and Section View (shared selection " "model).",
+                "Render the basemap, boreholes, near-surface geophysics traces, and "
+                "section corridors in 3D space.",
+                "Wire cross-view selection so the 3D View shares a selection model "
+                "with the Map View and Section View.",
             ],
         ),
         (
-            "M5 — Well logs and first installer",
+            "M5 — Native engineering data and the first installer",
             [
-                "Load LAS files with lasio and display logs in a small embedded log "
-                "track beside the Section View.",
-                "Package the app for Windows with PyInstaller (or briefcase).",
-                "Produce a signed installer and publish it as a GitHub release " "artifact.",
+                "Implement the engineering-format parsers chosen in M1 (e.g. AGS "
+                "borehole data, CPT/SPT, near-surface geophysics formats).",
+                "Display borehole logs alongside the section view.",
+                "Package the application for Windows with PyInstaller.",
+                "Publish a signed Windows installer as a GitHub release artefact.",
             ],
         ),
     ]
@@ -751,11 +854,11 @@ def build_story(styles) -> list:
     story.append(Spacer(1, 6 * mm))
     story.append(
         Paragraph(
-            "Shipping M5 means Constra v0.1 is a real application: it can open a "
-            "GeoTIFF basemap, plot wells on it in real-world coordinates, open a linked "
-            "SEG-Y seismic line in a section view with its well logs alongside, and "
-            "show the whole scene in 3D — installable from a single Windows installer. "
-            "That is the smallest possible product that proves the thesis.",
+            "Shipping M5 means Constra v0.1 is a real engineering-geoscience workspace: "
+            "project-scoped, coordinate-aware, with linked Map / Section / 3D views and "
+            "native readers for the data engineers actually use. It is not a tiny proof "
+            "of concept — it is the first usable release of an ambitious tool, and the "
+            "foundation everything else is built on.",
             styles["body"],
         )
     )
@@ -775,7 +878,7 @@ def main() -> None:
         bottomMargin=BOTTOM_MARGIN,
         title="Constra — Vision & Initial Scope",
         author="Constra project",
-        subject="Vision document, background, MVP scope, initial task list",
+        subject="Vision document, background, initial release scope, task list",
     )
     story = build_story(styles)
     doc.build(story, onFirstPage=_header_footer, onLaterPages=_header_footer)

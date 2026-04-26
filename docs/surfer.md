@@ -1,6 +1,10 @@
-# Surfer — Overview
+# Surfer — Exemplar
 
-Surfer (by Golden Software) is a plotting and contouring package widely used for displaying spatial data. It is capable software and well suited to individual map and section figures, but it was not designed as an integrated interpretation environment in the way Petrel was.
+> **Why this document exists.** Surfer is referenced by the Constra project only as an exemplar of a different category from Petrel — a generic plotting tool, not an industry-specific workspace. Surfer is good at what it does; the point is simply that what it does is not what an engineering practitioner needs as a daily working environment, and the limits described below explain where the integration ceiling sits when a tool is not built around a project model.
+
+## Overview
+
+Surfer (by Golden Software) is a widely used plotting and contouring package for spatial data. It produces excellent individual map and section figures, but it was not designed as an integrated interpretation environment.
 
 Product page: <https://www.goldensoftware.com/products/surfer>
 

@@ -1,12 +1,14 @@
 # Constra
 
-An integrated desktop environment for geoscience interpretation.
+An integrated geoscience workspace for engineering and construction.
 
 > **Working name.** "Constra" is a placeholder; the project name is expected to change before a public release.
 
 ## What is it?
 
-Constra is a new cross-platform desktop application for geoscience interpretation, aimed at the gap between heavyweight commercial platforms (e.g. Petrel) and general-purpose plotting tools (e.g. Surfer). It is designed around three linked views — **Map View**, **Section View**, and **3D View** — that share a single real-world coordinate frame, so the same well, seismic line, or horizon appears in the right place in every view.
+Constra is a desktop application for **engineering geoscience** — the daily working environment for engineering geologists and engineering geophysicists in geotechnical site investigation, civil and construction engineering, mining engineering, and environmental / engineering hydrogeology. It is built around three linked views — **Map View**, **Section View**, and **3D View** — that share a single real-world coordinate frame, so boreholes, in-situ tests, near-surface geophysics, topography, and CAD-derived plans all live together in one project.
+
+Petrel (Schlumberger, oil & gas) and Surfer (Golden Software, generic plotting) are referenced in the project's source documents only as **exemplars** — Petrel illustrates what an integrated workspace looks like in its industry, Surfer illustrates the limits of generic plotting tools. Constra is not a competitor or alternative to either; it is built for the engineering industry, which currently has no equivalent of either kind purpose-built for it.
 
 The full motivation, background, comparison with existing tools, MVP scope, technology choice, and initial backlog live in the vision document:
 

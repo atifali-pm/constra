@@ -1,6 +1,10 @@
-# Petrel — Overview
+# Petrel — Exemplar
 
-Petrel is a leading oil and gas industry interpretation platform that integrates geophysical, geological, hydrogeological, and reservoir data into a single interactive environment. Multiple data types can be combined and visualised together to produce a unified picture of the subsurface.
+> **Why this document exists.** Petrel is referenced by the Constra project only as an exemplar — a legendary product within its own industry (oil & gas, by Schlumberger) that illustrates what an integrated, coordinate-aware geoscience workspace looks like when one is purpose-built for a domain. Constra is not a Petrel competitor and not a Petrel alternative; it is being built for a different industry (engineering and construction) that currently has no comparable workspace of its own.
+
+## Overview
+
+Within its own industry, Petrel integrates geophysical, geological, hydrogeological, and reservoir data into a single interactive environment. Multiple data types can be combined and visualised together to produce a unified picture of the subsurface.
 
 Data can be displayed in both 2D (two-dimensional) and 3D (three-dimensional) views, and every view stays in sync with the others.
 
