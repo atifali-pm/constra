@@ -6,13 +6,15 @@ An integrated geoscience workspace for engineering and construction.
 
 ## What is it?
 
-Constra is a desktop application for **engineering geoscience** — the daily working environment for engineering geologists and engineering geophysicists in geotechnical site investigation, civil and construction engineering, mining engineering, and environmental / engineering hydrogeology. It is built around three linked views — **Map View**, **Section View**, and **3D View** — that share a single real-world coordinate frame, so boreholes, in-situ tests, near-surface geophysics, topography, and CAD-derived plans all live together in one project.
+Constra is desktop software for engineering geologists and engineering geophysicists. It pulls together the data an engineering project actually runs on (boreholes, in-situ tests, surface geophysics, topography, CAD plans) into one project, in one coordinate system. Map, section, and 3D views all read from the same data, so the well or the section the user picks in one view is the same well or section in the other two.
 
-Petrel (Schlumberger, oil & gas) and Surfer (Golden Software, generic plotting) are referenced in the project's source documents only as **exemplars** — Petrel illustrates what an integrated workspace looks like in its industry, Surfer illustrates the limits of generic plotting tools. Constra is not a competitor or alternative to either; it is built for the engineering industry, which currently has no equivalent of either kind purpose-built for it.
+The project covers geotechnical site investigation, civil and construction engineering (foundations, slopes, dams, tunnels, roads, bridges), mining engineering and exploration outside oil and gas, and environmental engineering and engineering hydrogeology.
+
+Petrel (Schlumberger, oil and gas) and Surfer (Golden Software, generic plotting) appear in this project's documents as reference points, not as rivals. Petrel shows what an integrated workspace can do in its own industry. Surfer shows where the ceiling sits for tools that only plot. Constra is for a different industry, one that today has neither.
 
 The full motivation, background, comparison with existing tools, MVP scope, technology choice, and initial backlog live in the vision document:
 
-- **[docs/Constra-Vision.pdf](docs/Constra-Vision.pdf)** — read this first.
+- **[docs/Constra-Vision.pdf](docs/Constra-Vision.pdf)**: read this first.
 
 ## Repository layout
 
@@ -66,7 +68,7 @@ docker/run.sh shell           # interactive bash inside the container
 docker/run.sh <anything>      # run any command inside the container
 ```
 
-The source tree is bind-mounted at `/app`, so host-side edits are picked up immediately — no rebuild needed unless you change dependencies or the Dockerfile.
+The source tree is bind-mounted at `/app`, so host-side edits are picked up immediately. No rebuild is needed unless you change dependencies or the Dockerfile.
 
 ### Rebuilding after dependency changes
 
@@ -92,7 +94,7 @@ On Debian/Ubuntu you may need `sudo apt install python3-venv libgl1 libegl1 libx
 
 ## Current status
 
-**M0 — Project bootstrap complete.** The repository holds the vision document, the rewritten source notes, a minimal PySide6 main window, a pytest-qt smoke test suite, GitHub Actions CI on Python 3.10/3.11/3.12, and a Docker-based development environment with X11 passthrough for visual runs. Next milestone is **M1 — Project container and CRS** (see section 8 of the vision PDF).
+**M0 (project bootstrap) is complete.** The repository holds the vision document, the rewritten reference notes, a minimal PySide6 main window, a pytest-qt smoke test suite, GitHub Actions CI on Python 3.10, 3.11, and 3.12, and a Docker development image with X11 passthrough for visual runs. The next milestone is **M1: project container and CRS**, set out in section 8 of the vision PDF.
 
 ## Planned technology stack
 
@@ -109,7 +111,7 @@ Rationale for each choice is in section 7 of the vision PDF.
 
 ## Platform
 
-v0.1 targets **Windows 10/11**. The chosen stack is cross-platform, so Linux and macOS builds are expected to come essentially for free once the Windows build is stable, but they are not a v0.1 commitment.
+v0.1 ships on **Windows 10 and 11**, because that is where engineering practitioners work. The stack itself is cross-platform, so Linux and macOS builds should be straightforward once the Windows build is solid. Neither is committed for v0.1.
 
 ## License
 
